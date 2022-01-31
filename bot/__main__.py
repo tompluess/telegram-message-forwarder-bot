@@ -6,6 +6,8 @@ from pyrogram.types import (
     InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup)
 from bot import LOG, app, advance_config, chats_data, from_chats, to_chats, sudo_users
 from bot.helper.utils import get_formatted_chat
+from bot.helper.user import username_long
+
 
 LOG.info("Welcome, this is the telegram-message-forwarder-bot. main routine...")
 
@@ -28,14 +30,8 @@ def work(client, message):
 
 
 def send_message(message, chat):
-    sender_name_parts = []
-    if message.from_user.first_name:
-        sender_name_parts.append(message.from_user.first_name)
-    if message.from_user.last_name:
-        sender_name_parts.append(message.from_user.last_name)
-    if message.from_user.username:
-        sender_name_parts.append("@"+message.from_user.username)
-    sender_name = " ".join(sender_name_parts)
+
+    sender_name = username_long(message.from_user)
     from_chat = str(message.chat.id).replace("-100", "")
     message_link = f"https://t.me/c/{from_chat}/{message.message_id}"
 
