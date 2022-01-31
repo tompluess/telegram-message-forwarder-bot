@@ -28,6 +28,8 @@ def work(client, message):
         except Exception as e:
             LOG.error(e)
 
+def get_invite_link(chat_id):
+    invite_link = app.create_chat_invite_link(chat_id)
 
 def send_message(message, chat):
 
