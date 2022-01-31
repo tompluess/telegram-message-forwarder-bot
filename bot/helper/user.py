@@ -1,5 +1,3 @@
-import unittest
-
 def username_long(user):
     sender_name_parts = []
     if user.first_name:
