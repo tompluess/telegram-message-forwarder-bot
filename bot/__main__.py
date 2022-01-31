@@ -1,14 +1,9 @@
-import os
 import random
 from time import sleep
 from pyrogram import filters
-from pyrogram.types import (
-    InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup)
 from bot import LOG, app, advance_config, chats_data, from_chats, to_chats, sudo_users
 from bot.helper.utils import get_formatted_chat
-from bot.helper.user import username_long
-from bot.helper.button import compose_buttons
-from bot.helper.invite_links import get_invite_link
+from bot.send_message import send_message
 
 LOG.info("Welcome, this is the telegram-message-forwarder-bot. main routine...")
 
@@ -18,31 +13,16 @@ def work(client, message):
     if advance_config:
         try:
             for chat in chats_data[message.chat.id]:
-                send_message(message, chat)
+                send_message(message, chat, app)
         except Exception as e:
             LOG.error(e)
     else:
         try:
             for chat in to_chats:
-                send_message(message, chat)
+                send_message(message, chat, app)
                 # app.forward_messages(chat, message.chat.id, message.message_id)
         except Exception as e:
             LOG.error(e)
-
-def send_message(message, chat_id):
-
-    sender_name = username_long(message.from_user)
-
-    LOG.info(
-        f"Send message from: {sender_name} / {message.chat.title} to chat: {chat_id} ")
-    LOG.debug(f"Send message: {message}")
-
-    invite_link = get_invite_link(message.chat.id)
-    buttons = compose_buttons(message, invite_link)
-
-    app.copy_message(
-        chat_id, message.chat.id, message.message_id,
-        reply_markup=InlineKeyboardMarkup([buttons]))
 
 
 @ app.on_message(filters.user(sudo_users) & filters.command(["fwd", "forward"]), group=1)
