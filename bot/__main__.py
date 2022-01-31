@@ -9,7 +9,7 @@ from bot.helper.invite_links import get_invite_link
 LOG.info("Welcome, this is the telegram-message-forwarder-bot. main routine...")
 
 
-@app.on_message(filters.chat(from_chats) & filters.incoming & ~filters.reply & ~filters.poll)
+@app.on_message(filters.chat(from_chats) & filters.incoming & ~filters.reply & ~filters.poll & ~filters.bot)
 def work(client, message):
     if advance_config:
         try:
