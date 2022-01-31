@@ -30,6 +30,10 @@
       "description": "Chat ID of thr chat where to forward messages",
       "required": false
     },
+    "INVITE_LINKS_EXPIRE_DAYS": {
+      "description": "Generated invite links expire after this period (in days)",
+      "required": false
+    },
     "TELEGRAM_SESSION": {
       "description": "Telegram session name, required if you want to login as user",
       "required": false
@@ -40,6 +44,10 @@
     },
     "SUDO_USERS": {
       "description": "List of sudo users separated by > ; <",
+      "required": false
+    },
+    "LOG_LEVEL": {
+      "description": "Log level of the application: debug, info or warning",
       "required": false
     }
   }
