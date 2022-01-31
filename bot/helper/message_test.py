@@ -1,7 +1,7 @@
 from pyrogram.types import (
     InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, ChatInviteLink)
 from pyrogram.types import (User, Message, Chat)
-from bot.send_message import send_message
+from message import send_message
 
 
 def test_send_message():

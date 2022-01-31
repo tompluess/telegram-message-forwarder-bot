@@ -1,6 +1,6 @@
 from pyrogram.types import (
     InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup)
-from button import compose_buttons
+from message import compose_buttons
 from pyrogram.types import (User, Message, Chat)
 
 

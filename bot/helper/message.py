@@ -1,5 +1,23 @@
+import logging
 from pyrogram.types import (
     InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup)
+
+LOG = logging.getLogger(__name__)
+
+
+def send_message(message, chat_id, app, invite_link=None):
+
+    sender_name = username_long(message.from_user)
+
+    LOG.info(
+        f"Send message from: {sender_name} / {message.chat.title} to chat: {chat_id} ")
+    LOG.debug(f"Send message: {message}")
+
+    buttons = compose_buttons(message, invite_link)
+
+    return app.copy_message(
+        chat_id, message.chat.id, message.message_id,
+        reply_markup=InlineKeyboardMarkup(buttons))
 
 
 def compose_buttons(message, invite_link=None):

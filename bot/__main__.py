@@ -3,7 +3,8 @@ from time import sleep
 from pyrogram import filters
 from bot import LOG, app, advance_config, chats_data, from_chats, to_chats, sudo_users
 from bot.helper.utils import get_formatted_chat
-from bot.send_message import send_message
+from bot.helper.message import send_message
+from bot.helper.invite_links import get_invite_link
 
 LOG.info("Welcome, this is the telegram-message-forwarder-bot. main routine...")
 
@@ -24,6 +25,10 @@ def work(client, message):
         except Exception as e:
             LOG.error(e)
 
+
+def forward_message(message, target_chat_id, app):
+    invite_link = get_invite_link(message.chat.id, app)
+    send_message(message, target_chat_id,  app, invite_link=invite_link)
 
 @ app.on_message(filters.user(sudo_users) & filters.command(["fwd", "forward"]), group=1)
 def forward(app, message):
