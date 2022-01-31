@@ -7,7 +7,7 @@ from pyrogram.types import (
 from bot import LOG, app, advance_config, chats_data, from_chats, to_chats, sudo_users
 from bot.helper.utils import get_formatted_chat
 from bot.helper.user import username_long
-
+from bot.helper.button import compose_buttons
 
 LOG.info("Welcome, this is the telegram-message-forwarder-bot. main routine...")
 
@@ -34,19 +34,12 @@ def get_invite_link(chat_id):
 def send_message(message, chat):
 
     sender_name = username_long(message.from_user)
-    from_chat = str(message.chat.id).replace("-100", "")
-    message_link = f"https://t.me/c/{from_chat}/{message.message_id}"
 
     LOG.info(
         f"Send message from: {sender_name} / {message.chat.title} to chat: {chat} ")
     LOG.debug(f"Send message: {message}")
 
-    if message.from_user.username:
-        buttons = [InlineKeyboardButton(f"{message.chat.title}", url=message_link),
-                   InlineKeyboardButton(f"PN {sender_name}", url=f"https://t.me/{message.from_user.username}")]
-    else:
-        buttons = [InlineKeyboardButton(
-            f"{sender_name} in {message.chat.title}", url=message_link)]
+    buttons = compose_buttons(message)
 
     app.copy_message(
         chat, message.chat.id, message.message_id,
