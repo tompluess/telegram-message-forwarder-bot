@@ -6,6 +6,9 @@ from dotenv import load_dotenv
 from pyrogram import Client
 from bot.helper.utils import get_formatted_chats
 
+if os.path.exists('config.env'):
+  load_dotenv('config.env')
+
 log_level = environ.get("LOG_LEVEL", "INFO").upper()
 logging.basicConfig(format='[%(asctime)s - %(pathname)s - %(levelname)s] %(message)s',
                     handlers=[logging.FileHandler('log.txt'), logging.StreamHandler()],
@@ -13,12 +16,9 @@ logging.basicConfig(format='[%(asctime)s - %(pathname)s - %(levelname)s] %(messa
 logging.getLogger("pyrogram").setLevel(logging.ERROR)
 LOG = logging.getLogger(__name__)
 
-if os.path.exists('config.env'):
-  load_dotenv('config.env')
-
 chats_data = {}
 
-LOG.info("Welcome, this is the telegram-message-forwarder-bot. initializing...")
+LOG.info(f"Welcome, this is the telegram-message-forwarder-bot. log_level={log_level}. initializing...")
 
 try:
   api_id = int(environ["API_ID"])

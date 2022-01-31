@@ -1,8 +1,10 @@
 import logging
+from os import environ
 from pyrogram.types import (
     InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup)
 
 LOG = logging.getLogger(__name__)
+LOG.setLevel(environ.get("LOG_LEVEL", "INFO").upper())
 
 
 def send_message(message, chat_id, app, invite_link=None):
@@ -10,7 +12,7 @@ def send_message(message, chat_id, app, invite_link=None):
     sender_name = username_long(message.from_user)
 
     LOG.info(
-        f"Send message from: {sender_name} / {message.chat.title} to chat: {chat_id} ")
+        f"Send message from: {sender_name} / {message.chat.title} (invite link: {invite_link}) to chat: {chat_id} ")
     LOG.debug(f"Send message: {message}")
 
     buttons = compose_buttons(message, invite_link)

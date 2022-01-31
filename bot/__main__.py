@@ -14,14 +14,13 @@ def work(client, message):
     if advance_config:
         try:
             for chat in chats_data[message.chat.id]:
-                send_message(message, chat, app)
+                forward_message(message, chat, app)
         except Exception as e:
             LOG.error(e)
     else:
         try:
             for chat in to_chats:
-                send_message(message, chat, app)
-                # app.forward_messages(chat, message.chat.id, message.message_id)
+                forward_message(message, chat, app)
         except Exception as e:
             LOG.error(e)
 
