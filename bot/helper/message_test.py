@@ -16,7 +16,6 @@ def test_send_message():
     sent_message = send_message(message, 100, app)
     # assert
     assert sent_message == "sent message"
-    print(app.arg_reply_markup)
     assert isinstance(app.arg_reply_markup.inline_keyboard[0][0], InlineKeyboardButton)
 
 
