@@ -8,6 +8,7 @@ from bot import LOG, app, advance_config, chats_data, from_chats, to_chats, sudo
 from bot.helper.utils import get_formatted_chat
 from bot.helper.user import username_long
 from bot.helper.button import compose_buttons
+from bot.helper.invite_links import get_invite_link
 
 LOG.info("Welcome, this is the telegram-message-forwarder-bot. main routine...")
 
@@ -28,21 +29,19 @@ def work(client, message):
         except Exception as e:
             LOG.error(e)
 
-def get_invite_link(chat_id):
-    invite_link = app.create_chat_invite_link(chat_id)
-
-def send_message(message, chat):
+def send_message(message, chat_id):
 
     sender_name = username_long(message.from_user)
 
     LOG.info(
-        f"Send message from: {sender_name} / {message.chat.title} to chat: {chat} ")
+        f"Send message from: {sender_name} / {message.chat.title} to chat: {chat_id} ")
     LOG.debug(f"Send message: {message}")
 
-    buttons = compose_buttons(message)
+    invite_link = get_invite_link(message.chat.id)
+    buttons = compose_buttons(message, invite_link)
 
     app.copy_message(
-        chat, message.chat.id, message.message_id,
+        chat_id, message.chat.id, message.message_id,
         reply_markup=InlineKeyboardMarkup([buttons]))
 
 
