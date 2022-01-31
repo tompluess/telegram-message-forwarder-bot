@@ -37,7 +37,7 @@ def compose_buttons(message, invite_link=None):
             f"Join {message.chat.title}", url=invite_link))
     elif message.from_user.username:
         buttons.append(InlineKeyboardButton(
-            f"PN {sender_name}", url=f"https://t.me/{message.from_user.username}"))
+            f"PN @{message.from_user.username}", url=f"https://t.me/{message.from_user.username}"))
 
     return [buttons]
 
@@ -48,7 +48,5 @@ def username_long(user):
         sender_name_parts.append(user.first_name)
     if user.last_name:
         sender_name_parts.append(user.last_name)
-    if user.username:
-        sender_name_parts.append("@"+user.username)
     sender_name = " ".join(sender_name_parts)
     return sender_name
