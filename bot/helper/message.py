@@ -33,8 +33,7 @@ def compose_buttons(message, invite_link=None):
     if invite_link:
         buttons.append(InlineKeyboardButton(
             f"Join {message.chat.title}", url=invite_link))
-
-    if message.from_user.username:
+    elif message.from_user.username:
         buttons.append(InlineKeyboardButton(
             f"PN {sender_name}", url=f"https://t.me/{message.from_user.username}"))
 

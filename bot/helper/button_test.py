@@ -4,7 +4,7 @@ from message import compose_buttons
 from pyrogram.types import (User, Message, Chat)
 
 
-def test_compose_buttons_with_username():
+def test_compose_buttons_with_username_and_invitelink():
     chattitle = "Chat Title"
     invite_link = "https://test.example/url"
     user = User(id=0)
@@ -15,11 +15,11 @@ def test_compose_buttons_with_username():
     # act
     buttons = compose_buttons(message, invite_link=invite_link)
     # assert
-    expected_username="First @maxmuster"
+    expected_username = "First @maxmuster"
     assert buttons == [[InlineKeyboardButton(f"{expected_username} in {chattitle}", url="https://t.me/c/100/1"),
                         InlineKeyboardButton(
-                            f"Join {chattitle}", url=invite_link),
-                        InlineKeyboardButton(f"PN {expected_username}", url=f"https://t.me/maxmuster")]]
+                            f"Join {chattitle}", url=invite_link)]]
+
 
 def test_compose_buttons_with_username_without_invitelink():
     chattitle = "Chat Title"
@@ -31,7 +31,7 @@ def test_compose_buttons_with_username_without_invitelink():
     # act
     buttons = compose_buttons(message)
     # assert
-    expected_username="First @maxmuster"
+    expected_username = "First @maxmuster"
     assert buttons == [[InlineKeyboardButton(f"{expected_username} in {chattitle}", url="https://t.me/c/100/1"),
                         InlineKeyboardButton(f"PN {expected_username}", url=f"https://t.me/maxmuster")]]
 
