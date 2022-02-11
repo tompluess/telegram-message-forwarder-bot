@@ -27,7 +27,7 @@ def create_invite_link(chat_id, app):
         expire_days = int(environ.get("INVITE_LINKS_EXPIRE_DAYS", "7"))
         now = datetime.now()
         expire_date = now + timedelta(days=expire_days)
-        link_name = f"Used for {invite_links_cache_hours}h from {now}"
+        link_name = f"Cashed for {invite_links_cache_hours}h from {now}"
         LOG.debug(f"Link Name: {link_name}")
 
         invite_link = app.create_chat_invite_link(
@@ -40,5 +40,5 @@ def create_invite_link(chat_id, app):
 
 
 def reset_invite_links():
-    LOG.warning("reset invite links")
+    LOG.warning("reset invite links cache")
     invite_links_cache.clear()
