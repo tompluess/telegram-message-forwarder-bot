@@ -6,7 +6,8 @@ from cachetools import TTLCache
 LOG = logging.getLogger(__name__)
 LOG.setLevel(environ.get("LOG_LEVEL", "INFO").upper())
 
-invite_links_cache = TTLCache(maxsize=99, ttl=24*3600)
+invite_links_cache_hours=int(environ.get("INVITE_LINKS_CACHE_HOURS", "24"))
+invite_links_cache = TTLCache(maxsize=99, ttl=invite_links_cache_hours*3600)
 
 
 def get_invite_link(chat_id, app):
@@ -26,7 +27,7 @@ def create_invite_link(chat_id, app):
         expire_days = int(environ.get("INVITE_LINKS_EXPIRE_DAYS", "7"))
         now = datetime.now()
         expire_date = now + timedelta(days=expire_days)
-        link_name = f"Message Forwarder Bot {now}"
+        link_name = f"Used for {invite_links_cache_hours}h from {now}"
         LOG.debug(f"Link Name: {link_name}")
 
         invite_link = app.create_chat_invite_link(

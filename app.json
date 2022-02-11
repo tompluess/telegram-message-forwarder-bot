@@ -34,6 +34,10 @@
       "description": "Generated invite links expire after this period (in days)",
       "required": false
     },
+    "INVITE_LINKS_CACHE_HOURS": {
+      "description": "Generated invite links will be cached and reused for x hours",
+      "required": false
+    },
     "TELEGRAM_SESSION": {
       "description": "Telegram session name, required if you want to login as user",
       "required": false
