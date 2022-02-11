@@ -27,9 +27,9 @@ def get_formatted_chats(chats, app):
             chat_id = app.get_chat(chat_id).id
           formatted_chats.append(chat_id)
         else:
-          LOG.warning("Chat ID cannot be parsed: {chat}")
+          LOG.warning(f"Chat ID cannot be parsed: {chat}")
       except Exception as e:
-        LOG.error("Chat ID cannot be parsed: {chat}")
+        LOG.error(f"Chat ID cannot be parsed: {chat}")
         LOG.error(e)
         sys.exit(1)
     return formatted_chats
@@ -50,10 +50,10 @@ def get_formatted_chat(chat, app):
           chat_id = app.get_chat(chat_id).id
         return chat_id
       else:
-        LOG.warn("Chat ID cannot be parsed: {chat}")
+        LOG.warn(f"Chat ID cannot be parsed: {chat}")
         return None
     except Exception as e:
-      LOG.error("Chat ID cannot be parsed: {chat}")
+      LOG.error(f"Chat ID cannot be parsed: {chat}")
       LOG.error(e)
       return None
 
