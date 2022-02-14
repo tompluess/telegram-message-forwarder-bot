@@ -1,5 +1,6 @@
 import logging
 from os import environ
+from pyrogram import filters
 from pyrogram.types import (Message, Photo,
     InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup)
 from cachetools import TTLCache
@@ -11,6 +12,16 @@ deduplicate_messages_cache_hours = int(
     environ.get("MESSAGES_CACHE_HOURS", "72"))
 deduplicate_messages_cache = TTLCache(
     maxsize=99, ttl=deduplicate_messages_cache_hours*3600)
+
+
+
+def accepted_message(_, __, m: Message):
+    if m.text:
+        return len(m.text) > 10 and not m.text.startswith(("/", "@", ",", ":", ";", "\\"))
+    return True
+
+accepted_messages_filter = filters.create(accepted_message)
+"""Filter accepted messages messages. Exclude starting with chars /:@, etc. Exclude very short messages."""
 
 
 def send_message(message, chat_id, app, invite_link=None):

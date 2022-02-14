@@ -3,13 +3,13 @@ from time import sleep
 from pyrogram import filters
 from bot import LOG, app, advance_config, chats_data, from_chats, to_chats, sudo_users
 from bot.helper.utils import get_formatted_chat
-from bot.helper.message import send_message
+from bot.helper.message import send_message, accepted_messages_filter
 from bot.helper.invite_links import get_invite_link
 
 LOG.info("Welcome, this is the telegram-message-forwarder-bot. main routine...")
 
 
-@app.on_message(filters.chat(from_chats) & filters.incoming & ~filters.reply & ~filters.poll & ~filters.bot)
+@app.on_message(filters.chat(from_chats) & filters.incoming & ~filters.reply & ~filters.poll & ~filters.bot & accepted_messages_filter)
 def work(client, message):
     if advance_config:
         try:
@@ -28,6 +28,7 @@ def work(client, message):
 def forward_message(message, target_chat_id, app):
     invite_link = get_invite_link(message.chat.id, app)
     send_message(message, target_chat_id,  app, invite_link=invite_link)
+
 
 @ app.on_message(filters.user(sudo_users) & filters.command(["fwd", "forward"]), group=1)
 def forward(app, message):

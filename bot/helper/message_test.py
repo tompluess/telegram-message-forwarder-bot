@@ -1,8 +1,63 @@
+from email.mime import image
 from pyrogram.types import (
     InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, ChatInviteLink)
 from pyrogram.types import (User, Message, Chat, Photo)
-from message import send_message, reset_messages_cache
+from message import send_message, reset_messages_cache, accepted_message
 
+def test_accepted_messages_image():
+    chattitle = "Chat Title"
+    user = User(id=0)
+    user.first_name = "First"
+    user.username = "maxmuster"
+    chat = Chat(id=100, type="Text", title=chattitle)
+    message = Message(message_id=1, chat=chat,
+                      from_user=user,  media="test-image.jpg", caption="test")
+    result = accepted_message(None, None, message)
+    assert result == True
+
+def test_accepted_messages_text():
+    chattitle = "Chat Title"
+    user = User(id=0)
+    user.first_name = "First"
+    user.username = "maxmuster"
+    chat = Chat(id=100, type="Text", title=chattitle)
+    message = Message(message_id=1, chat=chat,
+                      from_user=user, text="Text with more than 10 characters")
+    result = accepted_message(None, None, message)
+    assert result == True
+
+def test_accepted_messages_very_short_text():
+    chattitle = "Chat Title"
+    user = User(id=0)
+    user.first_name = "First"
+    user.username = "maxmuster"
+    chat = Chat(id=100, type="Text", title=chattitle)
+    message = Message(message_id=1, chat=chat,
+                      from_user=user, text="Hello")
+    result = accepted_message(None, None, message)
+    assert result == False
+
+def test_accepted_messages_command():
+    chattitle = "Chat Title"
+    user = User(id=0)
+    user.first_name = "First"
+    user.username = "maxmuster"
+    chat = Chat(id=100, type="Text", title=chattitle)
+    message = Message(message_id=1, chat=chat,
+                      from_user=user, text="/command")
+    result = accepted_message(None, None, message)
+    assert result == False
+
+def test_accepted_messages_command():
+    chattitle = "Chat Title"
+    user = User(id=0)
+    user.first_name = "First"
+    user.username = "maxmuster"
+    chat = Chat(id=100, type="Text", title=chattitle)
+    message = Message(message_id=1, chat=chat,
+                      from_user=user, text="@user xyz hello")
+    result = accepted_message(None, None, message)
+    assert result == False
 
 def test_send_message():
     reset_messages_cache()
