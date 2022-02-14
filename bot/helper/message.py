@@ -64,11 +64,11 @@ def compose_buttons(message, invite_link=None):
 
     buttons = []
     buttons.append(InlineKeyboardButton(
-        f"{sender_name} in {message.chat.title}", url=message_link))
+        f"💌 {sender_name}", url=message_link))
 
     if invite_link:
         buttons.append(InlineKeyboardButton(
-            f"Join {message.chat.title}", url=invite_link))
+            f"{message.chat.title}", url=invite_link))
     elif message.from_user.username:
         buttons.append(InlineKeyboardButton(
             f"PN @{message.from_user.username}", url=f"https://t.me/{message.from_user.username}"))

@@ -15,9 +15,8 @@ def test_compose_buttons_with_username_and_invitelink():
     # act
     buttons = compose_buttons(message, invite_link=invite_link)
     # assert
-    assert buttons == [[InlineKeyboardButton(f"Max in {chattitle}", url="https://t.me/c/100/1"),
-                        InlineKeyboardButton(
-                            f"Join {chattitle}", url=invite_link)]]
+    assert buttons == [[InlineKeyboardButton(f"💌 Max", url="https://t.me/c/100/1"),
+                        InlineKeyboardButton(f"{chattitle}", url=invite_link)]]
 
 
 def test_compose_buttons_with_username_without_invitelink():
@@ -31,7 +30,7 @@ def test_compose_buttons_with_username_without_invitelink():
     buttons = compose_buttons(message)
     # assert
     expected_username = "Max"
-    assert buttons == [[InlineKeyboardButton(f"Max in {chattitle}", url="https://t.me/c/100/1"),
+    assert buttons == [[InlineKeyboardButton(f"💌 Max", url="https://t.me/c/100/1"),
                         InlineKeyboardButton(f"PN @maxmuster", url=f"https://t.me/maxmuster")]]
 
 
@@ -47,8 +46,8 @@ def test_compose_buttons_without_username():
     buttons = compose_buttons(message, invite_link=invite_link)
     assert buttons == [[
         InlineKeyboardButton(
-            f"Max Last in {chattitle}", url="https://t.me/c/100/1"),
-        InlineKeyboardButton(f"Join {chattitle}", url=invite_link)]]
+            f"💌 Max Last", url="https://t.me/c/100/1"),
+        InlineKeyboardButton(f"{chattitle}", url=invite_link)]]
 
 
 def test_compose_buttons_without_invitelink():
@@ -60,4 +59,4 @@ def test_compose_buttons_without_invitelink():
     # act
     buttons = compose_buttons(message)
     assert buttons == [[InlineKeyboardButton(
-        f"Max in {chattitle}", url="https://t.me/c/100/1")]]
+        f"💌 Max", url="https://t.me/c/100/1")]]
