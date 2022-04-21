@@ -1,7 +1,7 @@
 {
   "name": "Telegram Message Forwarder Bot",
   "description": "A Telegram forwarder bot, which can easily be deployed to Heroku.",
-  "repository": "https://github.com/viperadnan-git/telegram-message-forwarder-bot",
+  "repository": "https://github.com/tompluess/telegram-message-forwarder-bot",
   "logo": "https://avatars1.githubusercontent.com/u/34474300?s=280&v=4",
   "keywords": ["python", "pyrogram", "telegram", "forwarder"],
   "image": "heroku/python",
